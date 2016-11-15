@@ -30,5 +30,9 @@ Tapping the 3 dots on the top right accesses a menu where you can re upload tink
 ##Differences with Arduino Uno
 While many aspects of the photon are similar including the code, there are a few difference that we need to be aware of.
 
-..*The Photon works on 3.3v rather than 5v as the arduino does. 
-..*The Analog pins are 10 bit and so read from 0-4095 rather than 0-1023
++The Photon works on 3.3v rather than 5v as the arduino does. 
++The Analog pins are 10 bit and so read from 0-4095 rather than 0-1023
+
+##Useful Links
+[online dashboard](http://jflasher.github.io/spark-helper/)
+[detailed tutorials, course notes and examples from CMU](http://daraghbyrne.github.io/diotlabs/)
