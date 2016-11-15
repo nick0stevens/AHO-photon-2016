@@ -27,12 +27,19 @@ Tapping the inspect button in the top right takes us to the Device Inspector. He
 
 Tapping the 3 dots on the top right accesses a menu where you can re upload tinker or singnal your device. This causes the central led to flash rainbows. This is useful if you are unsure which device is associated with your account. 
 
+##Uploading code
+To upload code we need to use the online [particel IDE](https://www.particle.io/) on out laptop. Click on the IDE button on the topright and sign in. 
+Here you can find sample code, add libraries, save you code etc.
+
 ##Differences with Arduino Uno
 While many aspects of the photon are similar including the code, there are a few difference that we need to be aware of.
 
-+The Photon works on 3.3v rather than 5v as the arduino does. 
-+The Analog pins are 10 bit and so read from 0-4095 rather than 0-1023
+*The Photon works on 3.3v rather than 5v as the arduino does. 
+*Do not connect switches to the VIN pin as they may damage the switch pin.
+*The Analog pins are 10 bit and so read from 0-4095 rather than 0-1023
+*Remember not to publish data to often, otherwise you will get cut off from the particle server. So do not place `Particle.publish()` inside `void loop()`
 
 ##Useful Links
+[particle reference](https://docs.particle.io/reference/firmware/photon/#cloud-functions)
 [online dashboard](http://jflasher.github.io/spark-helper/)
 [detailed tutorials, course notes and examples from CMU](http://daraghbyrne.github.io/diotlabs/)
