@@ -54,3 +54,5 @@ While many aspects of the photon are similar including the code, there are a few
 [online dashboard](http://jflasher.github.io/spark-helper/)
 
 [detailed tutorials, course notes and examples from CMU](http://daraghbyrne.github.io/diotlabs/)
+
+[linking your photon with P5.js](https://www.youtube.com/watch?v=0QjgnEBp__U&feature=youtu.be&list=PLRqwX-V7Uu6bYBG4PsCJpsvMka3boE9pR)
