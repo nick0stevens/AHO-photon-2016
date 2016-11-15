@@ -33,7 +33,7 @@ Here you can find sample code, add libraries, save your code etc.
 
 We will run through an example in class but I suggest you have a look through this info on the [particle site] (https://docs.particle.io/guide/getting-started/build/photon/#web-ide)
 
-##Changing Wifi networks
+##Adding Wifi networks
 You can store a number of networks and passwords on the board and it will automatically connect to any known networks it can find. In order to introduce it to the new network you need the RGB led blinking blue. If it is not already push the setup button for 3 seconds. Then use your mobile app and run through the steps to add it as if you ware adding a new photon. The board will still remenber the school network as well. 
 
 ##Differences with Arduino Uno
@@ -42,7 +42,7 @@ While many aspects of the photon are similar including the code, there are a few
 * The Photon works on 3.3v rather than 5v as the arduino does. 
 * Do not connect switches to the VIN pin as they may damage the switch pin.
 * The Analog pins are 10 bit and so read from 0-4095 rather than 0-1023
-* Remember not to publish data to often, otherwise you will get cut off from the particle server. So do not place `Particle.publish()` inside `void loop()`
+* Remember not to publish data too often, otherwise you will get cut off from the particle server. So do not place `Particle.publish()` inside `void loop()`
 
 ##Useful Links
 [particle reference](https://docs.particle.io/reference/firmware/photon/#cloud-functions)
