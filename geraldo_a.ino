@@ -4,9 +4,9 @@ int buttonPin = D3;
 bool triggered = false;
 long triggerTime;
 
-int lightPin = A5;
-int lightValue;
-int lightPublishTime;
+//int lightPin = A5;
+//int lightValue;
+//int lightPublishTime;
 
 
 void setup() {
