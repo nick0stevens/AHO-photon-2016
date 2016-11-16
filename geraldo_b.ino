@@ -10,7 +10,7 @@ bool triggered = false;
 
 void setup() {
    //Particle.function("flash", flashFlash);
-    Particle.subscribe("GeraldoA", dataHandler); // this listens for and receives any info with the title GeraldoA, it then passes the content to beamHandler
+    Particle.subscribe("GeraldoA", dataHandler); // this listens for and receives any info with the title GeraldoA, it then passes the content to dataHandler
     Serial.begin(9600);
     pinMode(D7,OUTPUT);
     RGB.control(true);
