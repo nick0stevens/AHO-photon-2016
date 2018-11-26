@@ -17,6 +17,7 @@ webhook details
 double inputValue = -3.4;
 String inputText = "aaa";
 bool triggered = false;
+int interval =2;  // data retreval interval
 
 void setup() {
   Particle.subscribe("hook-response/getData", myHandler, MY_DEVICES);
@@ -27,7 +28,7 @@ void setup() {
 
 void loop() {
 
- if(Time.minute()%2==0) {   // check to see if current minute is divisable by 15
+ if(Time.minute()%interval==0) {   // check to see if current minute is divisable by 15
   if(!triggered){
       triggered = true;
 getData("");
