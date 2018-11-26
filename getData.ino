@@ -1,6 +1,17 @@
 /*
 this sketch triggers a webhook called "getData" every 2 mins
 the data it obtains is then available as numerical and text variable, getNumber and getText.
+
+webhook details
+{
+    "event": "getData",
+    "url": "http://api.open-notify.org/iss-now.json",
+    "requestType": "GET",
+    "noDefaults": true,
+    "rejectUnauthorized": true,
+    "responseTemplate": "{{iss_position.latitude}}"
+}
+
 */
 
 double inputValue = -3.4;
