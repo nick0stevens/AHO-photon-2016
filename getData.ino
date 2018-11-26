@@ -20,6 +20,7 @@ bool triggered = false;
 
 void setup() {
   Particle.subscribe("hook-response/getData", myHandler, MY_DEVICES);
+  Particle.function("getFreshData", getData);
   Particle.variable ( "getNumber", inputValue);
   Particle.variable ( "getText", inputText);
 }
@@ -29,7 +30,7 @@ void loop() {
  if(Time.minute()%2==0) {   // check to see if current minute is divisable by 15
   if(!triggered){
       triggered = true;
-  Particle.publish("getData", "outData", PRIVATE);
+getData("");
   }
  }
  else{
@@ -38,8 +39,13 @@ void loop() {
 }
 
 void myHandler(const char *event, const char *inData) {
-   
+
     inputText = String(inData);
-    inputValue = inputText.toFloat();
-    
+    inputText=inputText.replace(" ","");
+    inputValue=atoll(inputText);
+   
+}
+
+int getData(String outData){  
+Particle.publish("getData", outData, PRIVATE);
 }
