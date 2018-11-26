@@ -1,3 +1,36 @@
+/* This is the first of two webhooks for this sketch
+
+
+{
+    "event": "getWeather",
+    "url": "https://api.darksky.net/forecast/YOUR DARK SKY KEY HERE59.920311,10.767249",
+    "requestType": "GET",
+    "noDefaults": true,
+    "rejectUnauthorized": true,
+    "responseTemplate": "{{currently.temperature}}",
+    "query": {
+        "units": "si",
+        "exclude": "minutely,hourly,daily,alerts,flags"
+    }
+}
+Here is the second webhook
+{
+    "event": "getOldWeather",
+    "url": "https://api.darksky.net/forecast/YOUR DARK SKY KEY HERE/59.920311,10.767249,{{{PARTICLE_EVENT_VALUE}}}",
+    "requestType": "GET",
+    "noDefaults": true,
+    "rejectUnauthorized": true,
+    "responseTemplate": "{{currently.temperature}}",
+    "query": {
+        "units": "si",
+        "exclude": "minutely,hourly,daily,alerts,flags"
+    }
+}
+
+
+*/
+
+
 // This #include statement was automatically added by the Particle IDE.
 #include <neopixel.h>
 //----------------- LED Handling ------------------------
