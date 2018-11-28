@@ -8,7 +8,7 @@ this webhook retreives the data for the sketch below
     "requestType": "GET",
     "noDefaults": true,
     "rejectUnauthorized": true,
-    "responseTemplate": "{{data.weather.0.hourly.0.swellHeight_ft}}&{{data.weather.0.hourly.0.swellPeriod_secs}}&{{data.weather.0.hourly.0.swellDir16Point}}&{{data.weather.0.hourly.0.windspeedKmph}}&{{data.weather.0.hourly.0.winddir16Point}}&{{data.weather.0.tides.0.tide_data.0.tideDateTime}}&{{data.weather.0.tides.0.tide_data.0.tide_type}}&{{data.weather.0.tides.0.tide_data.1.tideDateTime}}&{{data.weather.0.tides.0.tide_data.1.tide_type}}&{{data.weather.0.tides.0.tide_data.2.tideDateTime}}&{{data.weather.0.tides.0.tide_data.2.tide_type}}&{{data.weather.0.tides.0.tide_data.3.tideDateTime}}&{{data.weather.0.tides.0.tide_data.3.tide_type}}",
+    "responseTemplate": "{{data.weather.0.hourly.0.swellHeight_ft}}_{{data.weather.0.hourly.0.swellPeriod_secs}}_{{data.weather.0.hourly.0.swellDir16Point}}_{{data.weather.0.hourly.0.windspeedKmph}}_{{data.weather.0.hourly.0.winddir16Point}}_{{data.weather.0.tides.0.tide_data.0.tideDateTime}}_{{data.weather.0.tides.0.tide_data.0.tide_type}}_{{data.weather.0.tides.0.tide_data.1.tideDateTime}}_{{data.weather.0.tides.0.tide_data.1.tide_type}}_{{data.weather.0.tides.0.tide_data.2.tideDateTime}}_{{data.weather.0.tides.0.tide_data.2.tide_type}}_{{data.weather.0.tides.0.tide_data.3.tideDateTime}}_{{data.weather.0.tides.0.tide_data.3.tide_type}}",
     "query": {
         "key": "e9d6d8bd1d974f05aaa145946181611",
         "q": "62.124622, 5.154945",
@@ -18,8 +18,6 @@ this webhook retreives the data for the sketch below
         "tp": "1"
     }
 }
-
-*/
 
 double inputValue = -3.4;
 String inputText = "aaa";
