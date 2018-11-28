@@ -32,7 +32,7 @@ String swellDir,windDir;
 bool swellCk,swellPeriodCk,windSpeedCk,tideCk,swellDirCk,windDirCk;
 
 
-int interval = 10;
+int interval = 2;
 
 void setup() {
   Particle.subscribe("hook-response/getSurf", myHandler, MY_DEVICES);
@@ -43,7 +43,7 @@ void setup() {
    Particle.variable ( "getWind", windSpeed);
    Particle.variable ( "getWdDir", windDir);
    Particle.variable ( "getSwDirCk", swellDirCk);
-   
+   Particle.function("makeWeather", createWeather);
    Serial.begin(9600);
 }
 
@@ -63,6 +63,14 @@ getData("");
  
 }
 
+int createWeather(String newWeather){
+    
+// accepts upto 63 character ie, 2.6_8.0_SSW_27_S_2018-11-28 01:58_HIGH_2018-11-28 08:11_
+   myHandler("header",newWeather);
+    
+    return 1;
+}
+
 void myHandler(const char *event, const char *inData) {
   // Handle the integration response
   
@@ -74,38 +82,49 @@ void myHandler(const char *event, const char *inData) {
 
     char Buffer[500] = "";
     
-    swell = atof(strtok(strBuffer, "&"));
-    swellPeriod = atof(strtok(NULL, "&"));
-    swellDir = strtok(NULL, "&");
-    windSpeed = atof(strtok(NULL, "&"));
-    windDir = strtok(NULL, "&");
+    swell = atof(strtok(strBuffer, "_"));
+    swellPeriod = atof(strtok(NULL, "_"));
+    swellDir = strtok(NULL, "_");
+    windSpeed = atof(strtok(NULL, "_"));
+    windDir = strtok(NULL, "_");
     
-    String tideTemp = strtok(NULL, "&");
+    String tideTemp;
+    String tideType; 
+    
+    tideTemp = strtok(NULL, "_");
     Serial.print(" highTide1:");
     Serial.print( tideTemp);
     Serial.println("end");
-    String tideType = strtok(NULL, "&");
+    tideType = strtok(NULL, "_");
     
     struct tm tm;
     strptime(tideTemp, "%Y-%m-%d %H:%M:%S", &tm);
-    if(strcmp(tideType,"HIGH")==0){highTide1 = mktime(&tm); 
+    if(strcmp(tideType,"HIGH")==0){highTide1 = mktime(&tm);
     }
     else{lowTide1 = mktime(&tm);}
-    
-    tideTemp= strtok(NULL, "&");
-    String tideType2 = strtok(NULL, "&");
+    tideTemp= strtok(NULL, "_");
+    Serial.print(" highTide2:");
+    Serial.print( tideTemp);
+    Serial.println("end");
+    String tideType2 = strtok(NULL, "_");
     strptime(tideTemp, "%Y-%m-%d %H:%M:%S", &tm);
     if(strcmp(tideType,"HIGH")==0){lowTide1 = mktime(&tm);}
     else{highTide1 = mktime(&tm);}
     
-    tideTemp = strtok(NULL, "&");
-    tideType2 = strtok(NULL, "&");
+    tideTemp = strtok(NULL, "_");
+    Serial.print(" highTide3:");
+    Serial.print( tideTemp);
+    Serial.println("end");
+    tideType2 = strtok(NULL, "_");
     strptime(tideTemp, "%Y-%m-%d %H:%M:%S", &tm);
     if(strcmp(tideType,"HIGH")==0){highTide2 = mktime(&tm);}
     else{lowTide2 = mktime(&tm);}
     
-    tideTemp = strtok(NULL, "&");
-    tideType2 = strtok(NULL, "&");
+    tideTemp = strtok(NULL, "_");
+    Serial.print(" highTide4:");
+    Serial.print( tideTemp);
+    Serial.println("end");
+    tideType2 = strtok(NULL, "_");
     strptime(tideTemp, "%Y-%m-%d %H:%M:%S", &tm);
     if(strcmp(tideType,"HIGH")==0){lowTide2 = mktime(&tm);}
     else{highTide2 = mktime(&tm);}    
