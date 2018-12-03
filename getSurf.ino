@@ -19,6 +19,43 @@ this webhook retreives the data for the sketch below
     }
 }
 
+ /*
+
+hoddevika surf conditions
+
+BAD
+
+example
+1_12_E_27_S_2018-12-03 01:58_HIGH_2018-11-28 08:11_LOW
+
+
+GOOD
+
+example
+5_12_W_27_S_2018-12-03 01:58_HIGH_2018-11-28 08:11_LOW
+
+Swell direction: SW-NW
+Swell height: 2-7 ft
+Swell period: at least 10s
+
+PERFECT
+
+example
+5_12_W_2_SE_2018-12-03 01:58_HIGH_2018-12-03 20:55_LOW
+
+Swell direction: SW-NW 
+Swell height: 2-7 ft
+Swell period: at least 10s
+Wind: SE, under 5 km/h (3 mph) ?
+Tide: Low-medium (3 hours)
+
+*/
+
+int motorPin=D4;
+int lowSpeed = 70;
+int highSpeed = 255;
+int motorSpeed;
+
 double inputValue = -3.4;
 String inputText = "aaa";
 bool triggered = false;
@@ -29,6 +66,7 @@ String swellDir,windDir;
 
 bool swellCk,swellPeriodCk,windSpeedCk,tideCk,swellDirCk,windDirCk;
 
+int surfConditions = 1;
 
 int interval = 2;
 
@@ -41,6 +79,7 @@ void setup() {
    Particle.variable ( "getWind", windSpeed);
    Particle.variable ( "getWdDir", windDir);
    Particle.variable ( "getSwDirCk", swellDirCk);
+   Particle.variable ( "overall", surfConditions);
    Particle.function("makeWeather", createWeather);
    Serial.begin(9600);
 }
@@ -58,7 +97,7 @@ getData("");
  }
  
  checkConditions();
- 
+ runMotor();
 }
 
 int createWeather(String newWeather){
@@ -143,20 +182,64 @@ Particle.publish("getSurf", outData, PRIVATE);
 }
 
 void checkConditions(){
-   if(swell>2&&swell<5) {
+
+
+    
+   if(swell>2&&swell<7) {
+       //Serial.println("yup!");
        swellCk =true;
-         } else{swellCk =false;}
-       if(swellPeriod>2&&swellPeriod<5) {
+         } else{swellCk =false; //Serial.println("nope!");
+         }
+       if(swellPeriod>10) {
        swellPeriodCk =true;
          } else{swellPeriodCk =false;}
-    if(strcmp(swellDir,"W")==0){
+    if((strcmp(swellDir,"SW")==0)||(strcmp(swellDir,"WSW")==0)||(strcmp(swellDir,"W")==0)||(strcmp(swellDir,"WNW")==0)||(strcmp(swellDir,"NW")==0)){
        swellDirCk =true; 
             } else{
              swellDirCk =false;   
             }
-            long timeFromTide = difftime(highTide1,Time.now());
-    if(timeFromTide>-1200&&timeFromTide<1200){
+    long timeFromTide = difftime(lowTide1,Time.now());
+    if(timeFromTide>-5400&&timeFromTide<5400){  // 5400 sec is 1.5hr either side of low tide
         tideCk=true;
     }
     else{tideCk=false;}
+    
+        if((strcmp(windDir,"SE")==0)){
+       windDirCk =true; 
+            } else{
+             windDirCk =false;   
+            }
+            
+               if(windSpeed>3) {
+       //Serial.println("yup!");
+       windSpeedCk =true;
+         } else{windSpeedCk =false; //Serial.println("nope!");
+         }
+    
+}
+
+void runMotor(){
+    
+
+    
+    if((swellCk)&&(swellDirCk)&&(swellPeriodCk)){
+        
+        if((windDirCk)&&(windDirCk)&&(tideCk)){
+            motorSpeed = highSpeed;
+            Serial.println("great Conditions!");
+            surfConditions = 3;
+        }
+        else{
+            motorSpeed = lowSpeed;
+            Serial.println("surfs ok~~~~~~~~~~~~~~~");
+            surfConditions = 2;
+        }
+    }
+    else{
+        motorSpeed = 0;
+        surfConditions = 1;
+    }
+    
+    
+    analogWrite(motorPin, motorSpeed);
 }
